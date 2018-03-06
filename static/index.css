@@ -1,0 +1,21 @@
+ul > li:nth-child(2){
+  position: relative;
+}
+
+ul > li:nth-child(2) > a {
+  -webkit-animation: pulse 2s infinite; /* Safari 4.0 - 8.0 */
+  animation: pulse 2s infinite;
+}
+/* Safari 4.0 - 8.0 */
+@-webkit-keyframes pulse {
+    0%   {border: 2px solid #515151;}
+    50%  {border: 2px solid #DCB587;}
+    100% {border: 2px solid #515151;}
+}
+
+/* Standard syntax */
+@keyframes pulse {
+  0%   {border: 2px solid #515151;}
+  50%  {border: 2px solid #DCB587;}
+  100% {border: 2px solid #515151;}
+}
