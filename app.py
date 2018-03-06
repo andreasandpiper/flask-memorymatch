@@ -1,4 +1,4 @@
-from flask import Flask, render_template, abort, redirect, url_for, jsonify
+from flask import Flask, render_template, abort, redirect, url_for, jsonify, request
 import game
 import sys
 import logging
@@ -22,6 +22,7 @@ def about():
 
 @app.route('/game', methods=["POST", 'GET'])
 def game():
+    current_game.new_game()
     return render_template('game.html', attempts = current_game.attempts, wins = current_game.games_won)
 
 @app.route('/update_score', methods=["POST"])
