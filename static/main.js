@@ -96,7 +96,6 @@ function Game() {
                 game.winGame();
               }
               game.clearClickedCards();
-              gameStats.renderGameStats();
             },
             error: function (error) {
               console.log(error);
@@ -105,7 +104,6 @@ function Game() {
         } else {
           this.eventForMismatchedCards(this.cardsFlipped[0].element, this.cardsFlipped[1].element);
           setTimeout(this.flipCardsBackOver.bind(this), 700);
-          gameStats.renderGameStats();
         }
   
       }
@@ -389,23 +387,6 @@ function GameStats(parent) {
   this.removeLife = function () {
     this.lives = this.decrement(this.lives);
     return this.lives;
-  }
-  this.getAccuracy = function () {
-    $.ajax({
-      url: '/attempt',
-      type: 'POST',
-      success: function (response) {
-        console.log(response)
-        var accuracy = Math.round((response.matches / response.attempts) * 100);
-        $(".accuracy .value").text(accuracy + "%");
-        $('.attempts .value').text(response.attempts);
-
-
-      },
-      error: function (error) {
-        console.log(error);
-      }
-    })
   }
   this.useResource = function () {
     var resource = $(event.target).closest('h3').attr('class');
