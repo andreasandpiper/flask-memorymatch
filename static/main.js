@@ -2,73 +2,41 @@ $(document).ready(initializeApp);
 
 var game = null;
 var gameStats = null;
-
-function initializeApp() {
-  $('.resetGame').click(beginGame);
-  gameStats = new GameStats();
-  $(".elementProperties h3").on('click', displayInfoAboutElement);
-  $('.resource').on('click', gameStats.useResource.bind(gameStats));
-  beginGame();
-}
-
-function beginGame() {
-  $('#game-area').empty();
-  game = new Game();
-  game.initializeGame();
-}
+var images = [{'chlorine': "/static/images/chlorine.jpg"},
+{'hydrogen': "/static/images/hydrogen.jpg"},
+{'carbon': "/static/images/carbon.jpg"},
+{'neon': "/static/images/neon.jpg"},
+{ 'sodium': "/static/images/sodium.jpg"},
+{'curium': "/static/images/curium.jpg"},
+{'calcium': "/static/images/calcium.jpg"},
+{'gold': "/static/images/gold.jpg"},
+{'oxygen': '/static/images/oxygen.jpg'}
+]
 
 function Game() {
   this.cards = null;
   this.matchCount = 0;
-  this.matchCountWin = null;
   this.cardsFlipped = [];
   this.dealCardsOnInterval = null;
   this.curiumCountdown = null;
-  this.images = [{
-      'chlorine': "/static/images/chlorine.jpg"
-    },
-    {
-      'hydrogen': "/static/images/hydrogen.jpg"
-    },
-    {
-      'carbon': "/static/images/carbon.jpg"
-    },
-    {
-      'neon': "/static/images/neon.jpg"
-    },
-    {
-      'sodium': "/static/images/sodium.jpg"
-    },
-    {
-      'curium': "/static/images/curium.jpg"
-    },
-    {
-      'calcium': "/static/images/calcium.jpg"
-    },
-    {
-      'gold': "/static/images/gold.jpg"
-    },
-    {
-      'oxygen': '/static/images/oxygen.jpg'
-    }
-  ]
   this.cow = null;
   this.gameStats = gameStats;
+
   this.initializeGame = function () {
-    var images = this.images.concat(this.images);
-    this.matchCountWin = this.images.length;
     this.cards = this.createCards(images);
     this.cow = new Cow();
     gameStats.parent = this;
+    this.gameStats.renderGameStats();
   };
+
   this.createCards = function (images) {
+    var allImages = images.concat(images);
     var cardList = [];
     var domCardList = [];
-    for (var i = 0; i < images.length; i++) {
-      for (var element in images[i]) {
-        var newCard = new Card(images[i][element], element, this);
+    for (var i = 0; i < allImages.length; i++) {
+      for (var element in allImages[i]) {
+        var newCard = new Card(allImages[i][element], element, this);
         var cardDomElement = newCard.render();
-        // $('#game-area').append(cardDomElement);
         domCardList.push(cardDomElement);
         cardList.push(newCard);
       }
@@ -77,68 +45,60 @@ function Game() {
     this.dealCardsToDOM(domCardList);
     return cardList;
   };
+
   this.handleCardClicked = function (cardClicked) {
-    if (this.cardsFlipped.length < 2) {
+    if(this.cardsFlipped.length < 2){
       this.cardsFlipped.push(cardClicked);
       cardClicked.revealSelf();
-      if (this.cardsFlipped.length === 2) {
-        if (this.cardsFlipped[0].selfType() === this.cardsFlipped[1].selfType()) {
-          $.ajax({
-            url: '/game',
-            data: {
-              score: true
-            },
-            type: 'POST',
-            success: function (response) {
-              console.log(response)
-              game.eventForMatchedCards(cardClicked.element);
-              if (response.matches === game.images.length) {
-                game.winGame();
-              }
-              game.clearClickedCards();
-            },
-            error: function (error) {
-              console.log(error);
-            }
-          });
+      if(this.cardsFlipped.length === 2){
+        this.gameStats.totalmatchAttempts++;
+        if(this.cardsFlipped[0].selfType() === this.cardsFlipped[1].selfType() ){
+          this.gameStats.totalGameMatches++;
+          this.matchCount++;
+          this.eventForMatchedCards(cardClicked.element);
+          if(this.matchCount === images.length){
+            this.winGame();
+          }
+          this.clearClickedCards();
         } else {
           this.eventForMismatchedCards(this.cardsFlipped[0].element, this.cardsFlipped[1].element);
-          setTimeout(this.flipCardsBackOver.bind(this), 700);
+          setTimeout(this.flipCardsBackOver.bind(this), 700)
         }
-  
+        this.gameStats.renderGameStats();
       }
     }
   };
+
   this.rearrangeExisitingDOMCards = function () {
     var arrayOfDomCards = $('.card').detach();
     var shuffledDOMCards = this.shuffleCards(arrayOfDomCards);
     this.dealCardsToDOM(shuffledDOMCards);
   }
+
   this.flipCardsBackOver = function () {
     this.cardsFlipped.forEach(function (card) {
       card.hideSelf()
     })
     this.clearClickedCards();
   }
+
   this.clearClickedCards = function () {
     this.cardsFlipped = [];
   };
+
   this.winGame = function () {
-    $.ajax({
-      url: '/winner',
-      type: 'POST',
-      success: function (response) {
-        console.log(response)
-        if (response.status === 'true') {
-          $(".modal").find('h1').text('you win');
-          $('.modal').css('display', 'block');
-        }
-      },
-      error: function (error) {
-        console.log(error);
-      }
-    })
+    $(".modal").find('h1').text('you win');
+    $('.modal').css('display', 'block');
+    var currentWins = localStorage.getItem('win-total');
+    if(currentWins){
+      localStorage.setItem('win-total', currentWins++);
+    } else {
+      localStorage.setItem('win-total', 1);
+    }
+    console.log(currentWins)
+    this.gameStats.renderGameStats();
   };
+
   this.gameOver = function () {
     $(".modal").find('h1').text('you lose');
     var wins = this.gameStats.gamesWon;
@@ -149,6 +109,7 @@ function Game() {
     }
     gameStats = new GameStats();
   }
+
   this.displayLosingResult = function (form, wins) {
     $('.games-played .value').text("0");
     $('.numberOfWins').text(wins);
@@ -157,6 +118,7 @@ function Game() {
     $('#modal').css('display', 'block');
   }
 }
+
 
 Game.prototype.shuffleCards = function (array) {
   var newArray = [];
@@ -193,10 +155,12 @@ Game.prototype.eventForMatchedCards = function (element) {
     case 'carbon':
       this.showTextForEvent('Diamonds are an allotrope of Carbon! Use them to save a life!')
       this.gameStats.diamondCount = this.gameStats.increment(this.gameStats.diamondCount);
+      this.gameStats.renderGameStats();
       break;
     case 'gold':
       this.showTextForEvent('Gold! Use gold to prevent Curium from radioactive decay!')
       this.gameStats.goldCount = this.gameStats.increment(this.gameStats.goldCount);
+      this.gameStats.renderGameStats();
       break;
     case 'neon':
       this.showTextForEvent('COW!')
@@ -353,7 +317,7 @@ function Cow() {
 }
 
 function GameStats(parent) {
-  this.gamesWon = parseInt($('.games-played .value').text());
+  this.gamesWon = 0;
   this.lives = 3;
   this.diamondCount = 0;
   this.saltCount = 0;
@@ -375,8 +339,11 @@ function GameStats(parent) {
     $('.diamonds span').text(this.diamondCount);
     $(".gold span").text(this.goldCount);
     $('.salt span').text(this.saltCount);
-    $('.games-played .value').text(this.gamesWon);
-    // this.getAccuracy();
+    var winTotal = localStorage.getItem('win-total');
+    console.log(winTotal)
+
+    $('.games-played .value').text(winTotal || 0);
+    this.getAccuracy();
   };
   this.addLife = function () {
     if (this.lives < 3) {
@@ -387,6 +354,9 @@ function GameStats(parent) {
   this.removeLife = function () {
     this.lives = this.decrement(this.lives);
     return this.lives;
+  }
+  this.getAccuracy = function () {
+    return Math.round((this.totalGameMatches/this.totalmatchAttempts)*100);
   }
   this.useResource = function () {
     var resource = $(event.target).closest('h3').attr('class');
@@ -401,6 +371,7 @@ function GameStats(parent) {
       this.parent.eventForMismatchedCards('hydrogen', 'carbon');
       this.saltCount--;
     }
+    this.renderGameStats();
   }
 }
 
@@ -409,4 +380,18 @@ function displayInfoAboutElement() {
     $('.elementProperties li ul').addClass('hidden');
   }
   $(this).next().toggleClass('hidden');
+}
+
+function initializeApp() {
+  $('.resetGame').click(beginGame);
+  gameStats = new GameStats();
+  $(".elementProperties h3").on('click', displayInfoAboutElement);
+  $('.resource').on('click', gameStats.useResource.bind(gameStats));
+  beginGame();
+}
+
+function beginGame() {
+  $('#game-area').empty();
+  game = new Game();
+  game.initializeGame();
 }
