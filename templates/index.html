@@ -1,52 +1,89 @@
-{% extends "layout.html" %} {% block title %}Instructions{% endblock %} {% block head %}
-<link rel="stylesheet" href="{{ url_for('static', filename='index.css') }}"> {% endblock %} {% block gameBody %}
-<div class='rules'>
-  <p>Find each element's matching pair, but watch out, some elements react with others which may rearrange the board or create
-    acids!
-  </p>
-  <hr>
-  <h2>How to Play</h2>
-  <p>
-    <strong>Click two cards to try and find a match.</strong>
-  </p>
-  <p>Match:
-    <img src="{{ url_for('static', filename='images/curium.jpg') }}" alt="curium">
-    <img src="{{ url_for('static', filename='images/curium.jpg') }}" alt="curium"> OR
-    <img src="{{ url_for('static', filename='images/chlorine.jpg') }}" alt="chlorine">
-    <img src="{{ url_for('static', filename='images/chlorine.jpg') }}" alt="chlorine"> etc ...</p>
-  <p>Certain element combinations create molecules or reactions that may change the game.</p>
-  <p>
-    <p>
-      <img src="{{ url_for('static', filename='images/hydrogen.jpg') }}" alt="hydrogen"> +
-      <img src="{{ url_for('static', filename='images/chlorine.jpg') }}" alt="chlrorine">:
-      <strong>Hydrochloric Acid!</strong> The acid burns right through you! Lose one life!</p>
-    <p>
-      <img src="{{ url_for('static', filename='images/curium.jpg') }}" alt="curium"> +
-      <img src="{{ url_for('static', filename='images/anyelement.jpg') }}" alt="curium">:
-      <strong>Radioactive!</strong> You have 5 seconds to find Curium's match or the entire board shuffles</p>
-    <p>
-      <img src="{{ url_for('static', filename='images/hydrogen.jpg') }}" alt="hydrogen"> +
-      <img src="{{ url_for('static', filename='images/oxygen.jpg') }}" alt="oxygen">:
-      <strong>Hydrogen Perioxide! H2O2</strong> The board rearranges so hydrogen and oxygen are the top 4 cards in the corner, in
-      order H H O O</p>
-    <p>
-      <img src="{{ url_for('static', filename='images/gold.jpg') }}" alt="gold"> +
-      <img src="{{ url_for('static', filename='images/gold.jpg') }}" alt="gold">: Adds to your gold pile. You can spend gold to stop Curium from shuffling the board!</p>
-    <p>
-      <img src="{{ url_for('static', filename='images/carbon.jpg') }}" alt="carbon"> +
-      <img src="{{ url_for('static', filename='images/carbon.jpg') }}" alt="carbon">: Adds to your
-      <strong>diamond</strong> pile. You can spend 2 diamond for 1 gold</p>
-    <p>
-      <img src="{{ url_for('static', filename='images/sodium.jpg') }}" alt="sodium"> OR
-      <img src="{{ url_for('static', filename='images/calcium.jpg') }}" alt="calcium"> +
-      <img src="{{ url_for('static', filename='images/chlorine.jpg') }}" alt="chlorine">:
-      <strong>Salt!</strong> You can spend salt to feed the cow and watch what happens.</p>
-    <p>
-      <img src="{{ url_for('static', filename='images/hydrogen.jpg') }}" alt="hydrogen"> +
-      <img src="{{ url_for('static', filename='images/carbon.jpg') }}" alt="carbpn">:
-      <strong>Methane!</strong> Watch the cow...</p>
-    <p>
-      <img src="{{ url_for('static', filename='images/neon.jpg') }}" alt="neon"> +
-      <img src="{{ url_for('static', filename='images/neon.jpg') }}" alt="neon">: The cow looks different now...</p>
-</div>
-{% endblock %}
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title> - Memory Match</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='index.css') }}"> 
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link href="https://fonts.googleapis.com/css?family=PT+Sans+Narrow|Oswald|Open+Sans" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/font-awesome/css/font-awesome.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+</head>
+
+<body>
+    <header>
+        <div class="title">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/6/65/Caffeine_molecule.png" alt="molecule">
+            <h1>Element Memory Match Game</h1>
+        </div>
+        <ul>
+            <li>
+                <a href="{{ url_for('.main') }}">Instructions</a>
+            </li>
+            <li>
+                <a href="{{ url_for('.game') }}">Game</a>
+            </li>
+            <li>
+                <a href="{{ url_for('.about') }}">About</a>
+            </li>
+        </ul>
+    </header>
+    <main class="game-area-full">
+
+      <div class='rules'>
+        <p>Find each element's matching pair, but watch out, some elements react with others which may rearrange the board or create
+          acids!
+        </p>
+        <hr>
+        <h2>How to Play</h2>
+        <p>
+          <strong>Click two cards to try and find a match.</strong>
+        </p>
+        <p>Match:
+          <img src="{{ url_for('static', filename='images/curium.jpg') }}" alt="curium">
+          <img src="{{ url_for('static', filename='images/curium.jpg') }}" alt="curium"> OR
+          <img src="{{ url_for('static', filename='images/chlorine.jpg') }}" alt="chlorine">
+          <img src="{{ url_for('static', filename='images/chlorine.jpg') }}" alt="chlorine"> etc ...</p>
+        <p>Certain element combinations create molecules or reactions that may change the game.</p>
+        <p>
+          <p>
+            <img src="{{ url_for('static', filename='images/hydrogen.jpg') }}" alt="hydrogen"> +
+            <img src="{{ url_for('static', filename='images/chlorine.jpg') }}" alt="chlrorine">:
+            <strong>Hydrochloric Acid!</strong> The acid burns right through you! Lose one life!</p>
+          <p>
+            <img src="{{ url_for('static', filename='images/curium.jpg') }}" alt="curium"> +
+            <img src="{{ url_for('static', filename='images/anyelement.jpg') }}" alt="curium">:
+            <strong>Radioactive!</strong> You have 5 seconds to find Curium's match or the entire board shuffles</p>
+          <p>
+            <img src="{{ url_for('static', filename='images/hydrogen.jpg') }}" alt="hydrogen"> +
+            <img src="{{ url_for('static', filename='images/oxygen.jpg') }}" alt="oxygen">:
+            <strong>Hydrogen Perioxide! H2O2</strong> The board rearranges so hydrogen and oxygen are the top 4 cards in the corner, in
+            order H H O O</p>
+          <p>
+            <img src="{{ url_for('static', filename='images/gold.jpg') }}" alt="gold"> +
+            <img src="{{ url_for('static', filename='images/gold.jpg') }}" alt="gold">: Adds to your gold pile. You can spend gold to stop Curium from shuffling the board!</p>
+          <p>
+            <img src="{{ url_for('static', filename='images/carbon.jpg') }}" alt="carbon"> +
+            <img src="{{ url_for('static', filename='images/carbon.jpg') }}" alt="carbon">: Adds to your
+            <strong>diamond</strong> pile. You can spend 2 diamond for 1 gold</p>
+          <p>
+            <img src="{{ url_for('static', filename='images/sodium.jpg') }}" alt="sodium"> OR
+            <img src="{{ url_for('static', filename='images/calcium.jpg') }}" alt="calcium"> +
+            <img src="{{ url_for('static', filename='images/chlorine.jpg') }}" alt="chlorine">:
+            <strong>Salt!</strong> You can spend salt to feed the cow and watch what happens.</p>
+          <p>
+            <img src="{{ url_for('static', filename='images/hydrogen.jpg') }}" alt="hydrogen"> +
+            <img src="{{ url_for('static', filename='images/carbon.jpg') }}" alt="carbpn">:
+            <strong>Methane!</strong> Watch the cow...</p>
+          <p>
+            <img src="{{ url_for('static', filename='images/neon.jpg') }}" alt="neon"> +
+            <img src="{{ url_for('static', filename='images/neon.jpg') }}" alt="neon">: The cow looks different now...</p>
+      </div>    </main>
+</body>
+
+</html>
+
+
+
+
