@@ -1,5 +1,5 @@
 from flask import Flask, render_template, abort, redirect, url_for, jsonify, request
-import game
+from game import Game
 import sys
 import logging
 
