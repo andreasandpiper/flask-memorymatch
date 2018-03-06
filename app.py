@@ -23,12 +23,13 @@ def about():
 @app.route('/game', methods=["POST", 'GET'])
 def game():
     current_game.new_game()
-    print(current_game)
+    print(current_game.matches)
     return render_template('game.html', attempts = current_game.attempts, wins = current_game.games_won)
 
 @app.route('/update_score', methods=["POST"])
 def update_score():
     score = current_game.add_match()
+    print(current_game.matches)
     data = {}
     data['matches'] = score
     data['total'] = 9
@@ -36,6 +37,7 @@ def update_score():
 
 @app.route('/attempt', methods=["POST"])
 def attempt():
+    print(current_game.matches)
     attempts = current_game.attempt()
     data = {}
     data['attempts'] = attempts
