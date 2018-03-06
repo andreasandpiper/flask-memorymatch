@@ -378,7 +378,7 @@ function GameStats(parent) {
     $(".gold span").text(this.goldCount);
     $('.salt span').text(this.saltCount);
     $('.games-played .value').text(this.gamesWon);
-    this.getAccuracy();
+    // this.getAccuracy();
   };
   this.addLife = function () {
     if (this.lives < 3) {

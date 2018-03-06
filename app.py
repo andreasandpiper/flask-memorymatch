@@ -32,14 +32,6 @@ def game():
         current_game.new_game()
         return render_template('game.html', attempts = current_game.attempts, wins = current_game.games_won)
 
-@app.route('/attempt', methods=["POST"])
-def attempt():
-    attempts = current_game.attempt()
-    data = {}
-    data['attempts'] = attempts
-    data['matches'] = current_game.matches
-    return jsonify(data)
-
 @app.route('/winner', methods=["POST"])
 def winner():
     data = {}
