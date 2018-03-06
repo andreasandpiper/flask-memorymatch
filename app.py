@@ -1,8 +1,9 @@
 from flask import Flask, render_template, abort, redirect, url_for
+import sys
 import logging
 
 
-app = Flask(__name__)
+app = Flask(__name__) 
 
 app.logger.addHandler(logging.StreamHandler(sys.stdout))
 app.logger.setLevel(logging.ERROR)
