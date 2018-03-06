@@ -22,21 +22,20 @@ def about():
 
 @app.route('/game', methods=["POST", 'GET'])
 def game():
-    current_game.new_game()
-    print(current_game.matches)
-    return render_template('game.html', attempts = current_game.attempts, wins = current_game.games_won)
-
-@app.route('/update_score', methods=["POST"])
-def update_score():
-    score = current_game.add_match()
-    print(current_game.matches)
-    data = {}
-    data['matches'] = score
-    data['total'] = 9
-    return jsonify(data)
+    global current_game
+    if request.method == 'POST':
+        score = current_game.add_match()
+        data = {}
+        data['matches'] = score
+        data['total'] = 9
+        return jsonify(data)
+    else: 
+        current_game.new_game()
+        return render_template('game.html', attempts = current_game.attempts, wins = current_game.games_won)
 
 @app.route('/attempt', methods=["POST"])
 def attempt():
+    global current_game
     attempts = current_game.attempt()
     data = {}
     data['attempts'] = attempts
@@ -46,6 +45,7 @@ def attempt():
 @app.route('/winner', methods=["POST"])
 def winner():
     data = {}
+    global current_game
     if current_game.matches == 9:
         data['status'] = "true"
         current_game.new_game()

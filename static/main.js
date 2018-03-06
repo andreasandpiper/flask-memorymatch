@@ -84,7 +84,7 @@ function Game() {
       if (this.cardsFlipped.length === 2) {
         if (this.cardsFlipped[0].selfType() === this.cardsFlipped[1].selfType()) {
           $.ajax({
-            url: '/update_score',
+            url: '/game',
             data: {
               score: true
             },
