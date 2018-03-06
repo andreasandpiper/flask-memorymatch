@@ -23,6 +23,7 @@ def about():
 @app.route('/game', methods=["POST", 'GET'])
 def game():
     current_game.new_game()
+    print(current_game)
     return render_template('game.html', attempts = current_game.attempts, wins = current_game.games_won)
 
 @app.route('/update_score', methods=["POST"])
