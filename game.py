@@ -1,9 +1,9 @@
 class Game:
 
-    def __init__(self, wins):
+    def __init__(self):
         self.matches = 0
         self.attempts = 0
-        self.games_won = wins
+        self.games_won = 0
         self.salt_count = 0
         self.gold_count = 0
         self.lives = 3

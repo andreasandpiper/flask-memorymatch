@@ -10,7 +10,7 @@ app.logger.addHandler(logging.StreamHandler(sys.stdout))
 app.logger.setLevel(logging.ERROR)
 
 
-current_game = game.Game(0)
+current_game = game.Game()
 
 @app.route('/')
 def index():
@@ -22,7 +22,6 @@ def about():
 
 @app.route('/game', methods=["POST", 'GET'])
 def game():
-    global current_game
     if request.method == 'POST':
         score = current_game.add_match()
         data = {}
@@ -35,7 +34,6 @@ def game():
 
 @app.route('/attempt', methods=["POST"])
 def attempt():
-    global current_game
     attempts = current_game.attempt()
     data = {}
     data['attempts'] = attempts
@@ -45,7 +43,6 @@ def attempt():
 @app.route('/winner', methods=["POST"])
 def winner():
     data = {}
-    global current_game
     if current_game.matches == 9:
         data['status'] = "true"
         current_game.new_game()
