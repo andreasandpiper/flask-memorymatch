@@ -37,7 +37,6 @@ def update_score():
 
 @app.route('/attempt', methods=["POST"])
 def attempt():
-    print(current_game.matches)
     attempts = current_game.attempt()
     data = {}
     data['attempts'] = attempts
