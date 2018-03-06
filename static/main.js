@@ -91,12 +91,12 @@ function Game() {
             type: 'POST',
             success: function (response) {
               console.log(response)
-              game.gameStats.totalGameMatches++;
               game.eventForMatchedCards(cardClicked.element);
               if (response.matches === game.images.length) {
                 game.winGame();
               }
               game.clearClickedCards();
+              gameStats.renderGameStats();
             },
             error: function (error) {
               console.log(error);
@@ -104,9 +104,10 @@ function Game() {
           });
         } else {
           this.eventForMismatchedCards(this.cardsFlipped[0].element, this.cardsFlipped[1].element);
-          setTimeout(this.flipCardsBackOver.bind(this), 700)
+          setTimeout(this.flipCardsBackOver.bind(this), 700);
+          gameStats.renderGameStats();
         }
-        this.gameStats.renderGameStats();
+  
       }
     }
   };
@@ -194,12 +195,10 @@ Game.prototype.eventForMatchedCards = function (element) {
     case 'carbon':
       this.showTextForEvent('Diamonds are an allotrope of Carbon! Use them to save a life!')
       this.gameStats.diamondCount = this.gameStats.increment(this.gameStats.diamondCount);
-      this.gameStats.renderGameStats();
       break;
     case 'gold':
       this.showTextForEvent('Gold! Use gold to prevent Curium from radioactive decay!')
       this.gameStats.goldCount = this.gameStats.increment(this.gameStats.goldCount);
-      this.gameStats.renderGameStats();
       break;
     case 'neon':
       this.showTextForEvent('COW!')
@@ -421,7 +420,6 @@ function GameStats(parent) {
       this.parent.eventForMismatchedCards('hydrogen', 'carbon');
       this.saltCount--;
     }
-    this.renderGameStats();
   }
 }
 
