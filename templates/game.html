@@ -240,9 +240,7 @@
   <!-- Modal content -->
   <div class="modal-content">
     <h1>End of Game</h1>
-    <form class='win' action="{{ url_for('game') }}" method="GET">
-      <button type='submit'>Play Again</button>
-    </form>
+    <a href="{{ url_for('game') }}">Play Again</a>
   </div>
 </div>
 {% endblock %}
