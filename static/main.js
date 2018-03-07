@@ -51,7 +51,6 @@ function Game() {
       this.cardsFlipped.push(cardClicked);
       cardClicked.revealSelf();
       if(this.cardsFlipped.length === 2){
-        this.gameStats.totalmatchAttempts++;
         if(this.cardsFlipped[0].selfType() === this.cardsFlipped[1].selfType() ){
           this.gameStats.totalGameMatches++;
           this.matchCount++;
@@ -64,6 +63,7 @@ function Game() {
           this.eventForMismatchedCards(this.cardsFlipped[0].element, this.cardsFlipped[1].element);
           setTimeout(this.flipCardsBackOver.bind(this), 700)
         }
+        this.gameStats.totalmatchAttempts++;
         this.gameStats.renderGameStats();
       }
     }
@@ -87,38 +87,18 @@ function Game() {
   };
 
   this.winGame = function () {
-    $(".modal").find('h1').text('you win');
-    $('.modal').css('display', 'block');
-    var currentWins = localStorage.getItem('win-total');
-    if(currentWins){
-      localStorage.setItem('win-total', currentWins++);
-    } else {
-      localStorage.setItem('win-total', 1);
-    }
-    console.log(currentWins)
+    $("#modal h1").text('you win');
+    $('#modal').css('display', 'block');
+    this.gameStats.increment('win-total');
     this.gameStats.renderGameStats();
   };
 
   this.gameOver = function () {
-    $(".modal").find('h1').text('you lose');
-    var wins = this.gameStats.gamesWon;
-    if (wins === 0) {
-      this.displayLosingResult('.lose', wins)
-    } else {
-      this.displayLosingResult('.endgame', wins)
-    }
+    $("#modal h1").text('Ahhh! Death by Hydrochloric Acid, you lose all your resources.');
+    $('#modal').css('display', 'block');
     gameStats = new GameStats();
   }
-
-  this.displayLosingResult = function (form, wins) {
-    $('.games-played .value').text("0");
-    $('.numberOfWins').text(wins);
-    $(form).removeClass('hidden');
-    $('.win').addClass('hidden');
-    $('#modal').css('display', 'block');
-  }
 }
-
 
 Game.prototype.shuffleCards = function (array) {
   var newArray = [];
@@ -154,12 +134,12 @@ Game.prototype.eventForMatchedCards = function (element) {
       break;
     case 'carbon':
       this.showTextForEvent('Diamonds are an allotrope of Carbon! Use them to save a life!')
-      this.gameStats.diamondCount = this.gameStats.increment(this.gameStats.diamondCount);
+      this.gameStats.increment('diamond-count');
       this.gameStats.renderGameStats();
       break;
     case 'gold':
       this.showTextForEvent('Gold! Use gold to prevent Curium from radioactive decay!')
-      this.gameStats.goldCount = this.gameStats.increment(this.gameStats.goldCount);
+      this.gameStats.increment('gold-count');
       this.gameStats.renderGameStats();
       break;
     case 'neon':
@@ -175,13 +155,12 @@ Game.prototype.eventForMismatchedCards = function (element1, element2) {
     this.cow.methaneGasCow();
   } else if (element2 === 'chlorine' && element1 === 'sodium' || element1 === 'chlorine' && element2 === 'sodium' || element2 === 'chlorine' && element1 === 'calcium' || element1 === 'chlorine' && element2 === 'calcium') {
     this.showTextForEvent('You created a salt! Use salt to feed the cow.')
-    this.gameStats.saltCount = this.gameStats.increment(this.gameStats.saltCount);
+    this.gameStats.increment('salt-count');
     this.gameStats.renderGameStats();
   } else if (element1 === "chlorine" && element2 === 'hydrogen' || element1 === 'hydrogen' && element2 === 'chlorine') {
     this.showTextForEvent('Ouch! Hydrochloric Acid spilled everywhere! Lose one life due to chemical burn.')
-    $('.lifeLeft' + this.gameStats.lives).fadeOut();
-    this.gameStats.lives = this.gameStats.removeLife();
-    if (this.gameStats.lives === 0) {
+    this.gameStats.removeLife();
+    if (localStorage.getItem('lives') === "0") {
       this.gameOver();
     }
   } else if (element1 === 'curium' || element2 === 'curium') {
@@ -317,59 +296,89 @@ function Cow() {
 }
 
 function GameStats(parent) {
-  this.gamesWon = 0;
-  this.lives = 3;
-  this.diamondCount = 0;
-  this.saltCount = 0;
-  this.goldCount = 0;
   this.totalmatchAttempts = 0;
   this.totalGameMatches = 0;
   this.parent = parent;
-  this.increment = function (gameStat) {
-    gameStat++;
-    return gameStat;
-  }
-  this.decrement = function (gameStat) {
-    if (gameStat > 0) {
-      gameStat--;
-      return gameStat;
+  this.resources = ['gold-count','salt-count', 'diamond-count','win-total'];
+
+  this.constructResources = function(){
+    var lives = localStorage.getItem('lives');
+    if(lives === null || lives === "0"){
+      localStorage.setItem('lives', 3);
+    } 
+    for(var index = 0 ; index < this.resources.length; index++){
+      var item = localStorage.getItem(this.resources[index]);
+      if(lives === '0'){
+        item = 0; 
+      }
+      this.setInStorage(this.resources[index], item);
     }
+
+    for( var lifeIndex = 3; lifeIndex > localStorage.setItem('lives', 3) ; lifeIndex--){
+      $('.lifeLeft' + lifeIndex).fadeOut();
+
+    }
+   }
+
+  this.setInStorage = function(name, value, amount){
+    if(value === null || value =='0' || localStorage.getItem('lives') === 0){
+      localStorage.setItem(name, 0);
+    } 
+  }
+
+  this.increment = function (resource) {
+    var currentValue = localStorage.getItem(resource);
+    localStorage.setItem(resource, ++currentValue);
+  }
+  this.decrement = function (resource) {
+    var currentValue = localStorage.getItem(resource);
+    var usedItem = true; 
+    if(currentValue > 0){
+      currentValue--; 
+    } else {
+      usedItem = false; 
+    }
+    localStorage.setItem(resource, currentValue);
+    return usedItem;
   }
   this.renderGameStats = function () {
-    $('.diamonds span').text(this.diamondCount);
-    $(".gold span").text(this.goldCount);
-    $('.salt span').text(this.saltCount);
-    var winTotal = localStorage.getItem('win-total');
-    console.log(winTotal)
-
-    $('.games-played .value').text(winTotal || 0);
-    this.getAccuracy();
+    var accuracy = this.getAccuracy();
+    $('.diamonds span').text(localStorage.getItem('diamond-count'));
+    $(".gold span").text(localStorage.getItem('gold-count'));
+    $('.salt span').text(localStorage.getItem('salt-count'));
+    $('.games-played .value').text(localStorage.getItem('win-total'));
+    $('.accuracy .value').text(accuracy + "%");
+    $('.attempts .value').text(this.totalmatchAttempts);
   };
   this.addLife = function () {
-    if (this.lives < 3) {
-      this.lives = this.increment(this.lives);
+    var lifeLeft = localStorage.getItem('lives');
+    if (lifeLeft < 3) {
+      this.increment('lives');
+      $('.lifeLeft' + lifeLeft).removeClass("loseLife");
+
     }
-    return this.lives;
   }
   this.removeLife = function () {
-    this.lives = this.decrement(this.lives);
-    return this.lives;
+    $('.lifeLeft' + localStorage.getItem('lives')).addClass("loseLife");
+    this.decrement('lives');
+
   }
   this.getAccuracy = function () {
-    return Math.round((this.totalGameMatches/this.totalmatchAttempts)*100);
+    var accuracy = Math.round((this.totalGameMatches/this.totalmatchAttempts)*100);; 
+    return accuracy || 0; 
   }
   this.useResource = function () {
     var resource = $(event.target).closest('h3').attr('class');
-    if (resource === 'diamonds' && this.diamondCount > 0) {
+    if (resource === 'diamonds' && localStorage.getItem('diamond-count') > 0 && localStorage.getItem('diamond-count') < 3) {
       this.addLife();
-      this.diamondCount--;
-      $('.lifeLeft' + this.lives).fadeIn();
-    } else if (resource === 'gold' && this.goldCount > 0) {
+      this.decrement('diamond-count')
+      $('.lifeLeft' + localStorage.getItem('lives')).removeClass("loseLife");
+    } else if (resource === 'gold' && localStorage.getItem('gold-count') > 0) {
       this.parent.eventForMatchedCards('curium');
-      this.goldCount--;
-    } else if (resource === 'salt' && this.saltCount > 0) {
+      this.decrement('gold-count')
+    } else if (resource === 'salt' && localStorage.getItem('salt-count') > 0) {
       this.parent.eventForMismatchedCards('hydrogen', 'carbon');
-      this.saltCount--;
+      this.decrement('salt-count')
     }
     this.renderGameStats();
   }
@@ -385,6 +394,7 @@ function displayInfoAboutElement() {
 function initializeApp() {
   $('.resetGame').click(beginGame);
   gameStats = new GameStats();
+  gameStats.constructResources();
   $(".elementProperties h3").on('click', displayInfoAboutElement);
   $('.resource').on('click', gameStats.useResource.bind(gameStats));
   beginGame();

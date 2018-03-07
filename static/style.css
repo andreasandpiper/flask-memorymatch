@@ -211,6 +211,10 @@ button:hover {
   width: 4vw;
 }
 
+.loseLife {
+  filter: brightness(20%);
+}
+
 /* ---------ELEMENT PROPERTIES----------------------------------------------------------------------------------------------------------*/
 
 .elementProperties img {

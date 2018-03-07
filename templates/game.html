@@ -14,7 +14,7 @@
     <hr>
     <h3 class="games-played">
       <p class="label">Games Won:
-        <span class="value">0</span>
+        <span class="value"></span>
       </p>
     </h3>
     <h3 class="attempts">
@@ -30,16 +30,16 @@
     <hr>
     <h3 class="diamonds">
       <img class='resource' src="{{ url_for('static', filename='images/diamond.png') }}" alt="diamonds"> x
-      <span>0</span>
+      <span></span>
 
     </h3>
     <h3 class="salt">
       <img class='resource' src="{{ url_for('static', filename='images/salt.png') }}" alt="salt">x
-      <span>0</span>
+      <span></span>
     </h3>
     <h3 class="gold">
       <img class='resource' src="{{ url_for('static', filename='images/gold.png') }}" alt="diamonds"> x
-      <span>0</span>
+      <span></span>
     </h3>
     <hr>
 
@@ -228,9 +228,11 @@
 </div>
 {% endblock %} {% block modal %}
 <h1 class="countDown"></h1>
+
 <div id="modal" class="modal">
   <!-- Modal content -->
   <div class="modal-content">
+    <h1>End of Game</h1>
     <form class='win' action="{{ url_for('game') }}" method="GET">
       <button type='submit'>Play Again</button>
     </form>
