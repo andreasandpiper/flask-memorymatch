@@ -30,11 +30,12 @@
                 <a href="{{ url_for('about') }}">About</a>
             </li>
         </ul>
+        {% block gamephrase %} {% endblock %} 
     </header>
     <main class="game-area-full">
         {% block leftbar %} {% endblock %} {% block gameBody %} {% endblock %} {% block rightbar %} {% endblock %}
     </main>
-    {% block gamephrase %} {% endblock %} {% block modal %} {% endblock %}
+  {% block modal %} {% endblock %}
 </body>
 
 </html>

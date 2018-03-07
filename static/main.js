@@ -314,7 +314,7 @@ function GameStats(parent) {
       this.setInStorage(this.resources[index], item);
     }
 
-    for( var lifeIndex = 3; lifeIndex > localStorage.setItem('lives', 3) ; lifeIndex--){
+    for( var lifeIndex = 3; lifeIndex > parseInt(lives) ; lifeIndex--){
       $('.lifeLeft' + lifeIndex).fadeOut();
 
     }
