@@ -55,6 +55,7 @@ header {
 }
 
 header .title {
+  font-size: .5em; 
   display: inline-block;
   width: 60%;
 }
@@ -62,6 +63,7 @@ header .title {
 header ul {
   display: inline-block;
   width: 35%;
+  padding-left: 0; 
 }
 
 .title img {
@@ -81,6 +83,7 @@ header ul {
 
 header ul {
   text-align: right;
+  z-index: 1;
 }
 
 header li {
@@ -103,16 +106,18 @@ header a:hover {
   color: #DCB587;
 }
 
+
 /* ---------GAME ACTION INFO----------------------------------------------------------------------------------------------------------*/
 
 .game-actions {
   font-size: 4vmin;
-  position: absolute;
   width: 100%;
-  padding: 0 20%;
-  bottom: 4%;
   text-align: center;
   color: #DCB587;
+}
+
+.game-actions h3{
+  margin: 0; 
 }
 
 /* ---------GAME STATS----------------------------------------------------------------------------------------------------------*/
@@ -135,12 +140,11 @@ header a:hover {
   width: 17.5%;
   align-items: center;
   z-index: 1;
-  /*min-width: 200px;*/
   background-color: rgba(0, 0, 0, .5);
-  height: 85vh;
   padding: 1%;
   font-size: 2vh;
-  max-height: 80vh;
+  height: 87vh;
+
 }
 
 .gameStats>div {
@@ -191,7 +195,7 @@ button:hover {
 }
 
 .methane {
-  width: 8vw;
+  width: 70%;
 }
 
 .methaneGas {
@@ -202,13 +206,13 @@ button:hover {
 }
 
 .gameStats h3 {
-  font-size: 2vh;
+  font-size: .8em;
 }
 
 .salt img,
 .gold img,
 .diamonds img {
-  width: 4vw;
+  width: 50%;
 }
 
 .loseLife {
@@ -223,18 +227,15 @@ button:hover {
 
 .elementInfo {
   width: 20%;
+  height: 87vh;
   align-items: center;
-  z-index: 1;
   background-color: rgba(0, 0, 0, .5);
-  max-height: 80vh;
   padding: 15px;
-  overflow: auto;
-  overflow-x: hidden;
+  overflow: auto; 
   overflow-y: scroll;
 }
 
 .elementProperties {
-  /*list-style-type: none;*/
   padding-left: 0;
 }
 
@@ -251,6 +252,10 @@ button:hover {
 .elementProperties h3 {
   font-size: 3vmin;
   margin: 2px 10px;
+}
+
+.elementInfo > p {
+  font-size: 1em; 
 }
 
 .elementProperties>li:hover>h3 {
@@ -273,7 +278,7 @@ button:hover {
 }
 
 .elementInfo h2 {
-  font-size: 4vh;
+  font-size: 1.5em;
 }
 
 /* ---------GAME AREA-------------------------------------------------------------------------------------------------------------*/
@@ -281,8 +286,6 @@ button:hover {
 .game-area-full {
   position: relative;
   display: flex;
-  max-width: 100%;
-  max-height: 80%;
 }
 
 #game-area {
@@ -305,9 +308,8 @@ button:hover {
 .card {
   position: relative;
   display: inline-block;
-  height: 10vmax;
-  width: 15%;
-  /*border: 2px solid #515151;*/
+  height: 9.3vw;
+  width: 9.3vw;
   margin: 0.5vw;
   box-shadow: 0px 0px 10px 3px rgba(0, 0, 0, 0.6);
   cursor: pointer;
@@ -466,3 +468,53 @@ tr:nth-child(even) {
 tr:nth-child(odd) {
   background-color: #ffffff;
 }
+
+
+@media all and (max-width: 980px) { 
+  .game-area-full  {
+    display: inline; 
+  }
+
+  .card {
+    width: 15vw;
+    height: 15vw; 
+  }
+
+  .gameStats, .elementInfo{
+    width: 100%;
+
+  }
+
+  .gameStats hr {
+    display: none; 
+  }
+
+  .lives, .gameStats h3 , .cow {
+    display: inline-block;
+  }
+
+  .lives, .gameStats h3 , .cow {
+    width: 20%;
+  }
+
+  .gameStats > div {
+    padding: 0 15px; 
+  }
+
+  .elementInfo{
+    display: none;
+  }
+  
+  #game-area {
+    width: 100%; 
+  }
+
+  .salt img, .gold img, .diamonds img {
+    width: 80%; 
+  }
+ }
+
+/* @media all and (max-width: 736px) { 
+
+ }
+@media all and (max-width: 480px) { ... } */
