@@ -23,23 +23,27 @@ Check out the [live site](https://memorymatch-flask.herokuapp.com/)
 ## Deployment with Heroku 
 
 * Sign up for an account
-* heroku login
+```
+heroku login
 ``` 
-* git clone https://github.com/[github username]/[repo-name].git
+```
+git clone https://github.com/[github username]/[repo-name].git
 ``` 
-* cd [folder name]
 ```
-* heroku create
+cd [folder name]
 ```
-* git push heroku master
 ```
-* heroku ps:scale web=1
+heroku create
 ```
-* heroku master
 ```
-
-
-
+git push heroku master
+```
+```
+heroku ps:scale web=1
+```
+```
+heroku master
+```
 
 ## Built With
 
