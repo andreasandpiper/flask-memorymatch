@@ -305,6 +305,7 @@ function GameStats(parent) {
     var lives = localStorage.getItem('lives');
     if(lives === null || lives === "0"){
       localStorage.setItem('lives', 3);
+      lives = 3; 
     } 
     for(var index = 0 ; index < this.resources.length; index++){
       var item = localStorage.getItem(this.resources[index]);
