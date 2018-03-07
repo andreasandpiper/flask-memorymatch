@@ -1,26 +1,66 @@
-# What is Heroku Flask Template ?
-`version 1.1`
+# Element Memory Match
 
-Heroku Flask Template is a simple web app programmed in Python-3 using flask micro-framework. It is created for begginers to understand the basics of creating a flask web app and deploying it on the Heroku. It can also be used as a template to create your new flask web apps which can then easily be deployable on Heroku.
+ A 'reactive' memory match game with a twist! The player must find all the element matches before losing all three lives. However, the game board can change based on finding molecule combinations. For example, Hydrogen and Chlorine create hydrochloric acid, which causes the player to loose a life. The game incorporate animated effects, countdowns, and board shuffles.
+ 
+ I was inspired to create a science game based on my background of being a science teacher. The periodic table is iconic to science, and I wanted to create a game where people could learn some information about elements and molecules by playing a fun game.
 
-##### Please note that this web-app is designed to be deployed on the HEROKU Platform. You can visit it by clicking [here](https://flasktemplate.herokuapp.com).
+## How to Play
 
-## Language, Framework and Plugins used :
-- ### Python 3.6.2
-- ### Flask micro-framework
-- ### Heroku
+Check out the [live site](https://memorymatch-flask.herokuapp.com/)
 
-## How to use the Heroku Flask Template ?
-- ### Download or clone this template.
-- ### Add your web-pages in the `templates` folder.
-- ### Edit `main.py` to add new routes and render the web-pages.
-- ### Add all the extra plugins that you used in the `requirements.txt`.
-- ### Push it to the Heroku server and deploy.
+1. Read the instructions! This is important since there are many events that manipulate the board and game.
+2. Click 'Game' to play
+3. Click one card, then click a second card and hope for a match!
+4. Depending on the cards you clicked, an event may occur. If an event happens, there will be orange text to notify you
+5. Play until you win or burned by Hydrochloric Acid too many times!
 
-## Why I created this template ?
-I tried to deploy several of my python applications to Heroku. But it was a disaster to find out so many flaws. There were so many tutorials yet it takes somuch time to figure things out, thus once I sucessfully deployed my first flask app on Heroku I decided to upload it on GitHub so that everyone can use it ! 
+### Prerequisites
 
-## License and Usage :
+* Python3
+* Flask
+* virtualenv
 
-This project is completely open-source and free-to-use. But you will need to mention about its author.
-Also there are some exceptions where this project can be used, please read Privacy Policy [here](http://parthsarthee.com/ops-privacy-policy)
+## Deployment with Heroku 
+
+* Sign up for an account
+* heroku login
+``` 
+* git clone https://github.com/[github username]/[repo-name].git
+``` 
+* cd [folder name]
+```
+* heroku create
+```
+* git push heroku master
+```
+* heroku ps:scale web=1
+```
+* heroku master
+```
+
+
+
+
+## Built With
+
+* Flask
+* Python
+* Jinja2
+* Javascript
+* HTML5
+* CSS3
+
+
+## Authors
+
+* Andrea Wayte - *Developer* - [Portfolio Website](http://www.andreawayte.com)
+* Vetronus - Flask template creater 
+
+## License and Usage
+
+This project is open-source and free to use as long as the author is acknowledged.  
+
+## Acknowledgments
+
+* [Vetronus](https://github.com/Vetronus/heroku-flask-template) for making a rad flask template enabling easy deployment to Heroku!
+
