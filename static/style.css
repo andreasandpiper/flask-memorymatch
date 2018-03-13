@@ -247,7 +247,6 @@ button:hover {
   background-color: rgba(0, 0, 0, .5);
   padding: 15px;
   overflow: auto; 
-  overflow-y: scroll;
 }
 
 .elementProperties {
@@ -305,13 +304,17 @@ button:hover {
 
 #game-area {
   position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
   width: 68%;
 }
 
 .countDown {
   color: #FFFFFF;
   font-size: 13vw;
-  /*height: 10vh;*/
   display: inline-block;
   position: absolute;
   bottom: 7vh;

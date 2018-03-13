@@ -78,7 +78,7 @@ function GameStats(parent) {
       this.addLife();
       this.decrement('diamond-count')
       $('.lifeLeft' + localStorage.getItem('lives')).removeClass("loseLife");
-    } else if (resource === 'gold' && localStorage.getItem('gold-count') > 0) {
+    } else if (resource === 'gold' && localStorage.getItem('gold-count') > 0 && game.curiumCountdown) {
       this.parent.eventForMatchedCards('curium');
       this.decrement('gold-count')
     } else if (resource === 'salt' && localStorage.getItem('salt-count') > 0) {
