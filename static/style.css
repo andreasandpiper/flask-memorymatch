@@ -16,9 +16,9 @@ p>strong {
   color: #DCB587;
 }
 
-::selection {
+/* ::selection {
   user-select: none;
-}
+} */
 
 * {
   box-sizing: border-box;
