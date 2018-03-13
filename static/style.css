@@ -47,6 +47,21 @@ h3 {
   font-size: 3vmin;
 }
 
+/* ---------Instruction Page------------------------------------------------------------------------------------------------*/
+
+.rules {
+  color: #ffffff;
+  padding: 20px;
+  background-color: rgba(0, 0, 0, .9);
+  margin: 0 auto;
+  width: 100%;
+  text-align: center;
+}
+
+.rules img {
+  width: 30px;
+  margin: 0 10px;
+}
 /* ---------Header------------------------------------------------------------------------------------------------*/
 
 header {
@@ -338,42 +353,19 @@ button:hover {
   width: 100%;
 }
 
-/* --------------------- IniatlizeApp Modal -----------------------------------------------------------------------------------------------------------------*/
-
-.rules {
-  color: #ffffff;
-  padding: 20px;
-  background-color: rgba(0, 0, 0, .9);
-  margin: 0 auto;
-  width: 100%;
-  text-align: center;
-}
-
-.rules img {
-  width: 30px;
-  margin: 0 10px;
-}
+/* ---------------------  Modal -----------------------------------------------------------------------------------------------------------------*/
 
 .modal {
   display: none;
-  /* Hidden by default */
   position: fixed;
-  /* Stay in place
-    z-index: 1; /* Sit on top */
   padding-top: 100px;
-  /* Location of the box */
   left: 0;
   top: 0;
   width: 100%;
-  /* Full width */
   height: 100%;
-  /* Full height */
   overflow: auto;
-  /* Enable scroll if needed */
   background-color: rgb(0, 0, 0);
-  /* Fallback color */
   background-color: rgba(0, 0, 0, 0.4);
-  /* Black w/ opacity */
   margin: 0;
 }
 
@@ -385,6 +377,7 @@ button:hover {
   border: 1px solid #888;
   width: 35%;
   box-shadow: 0px 0px 20px 5px rgba(0, 0, 0, 0.6);
+  background-image: url('images/periodictable.jpg');
 }
 
 /* --------------------- About Page -----------------------------------------------------------------------------------------------------------------*/
@@ -418,55 +411,6 @@ button:hover {
 
 .about-content {
   margin: 3%;
-}
-
-/* --------------------- Leader Board-----------------------------------------------------------------------------------------------------------------*/
-
-.leaderboard {
-  font-family: 'Open Sans', sans-serif;
-  margin: 5%;
-}
-
-table {
-  border-collapse: collapse;
-  width: 100%;
-  border: 2px solid #515151;
-  font-size: 2vmin;
-}
-
-td {
-  text-align: center;
-  padding: 2%;
-  border: 2px solid #515151;
-}
-
-table>tr>th:first-child {
-  width: 10%;
-}
-
-tbody>tr:nth-child(1)>th:nth-child(1) {
-  width: 5%;
-}
-
-th {
-  font-family: 'Open Sans', sans-serif;
-  background-color: #515151;
-  color: white;
-  padding: 0% 2%;
-  text-transform: uppercase;
-}
-
-tr {
-  border: solid 2px #515151;
-  text-transform: uppercase;
-}
-
-tr:nth-child(even) {
-  background-color: #DEDFDF;
-}
-
-tr:nth-child(odd) {
-  background-color: #ffffff;
 }
 
 
