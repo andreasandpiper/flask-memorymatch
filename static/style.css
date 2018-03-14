@@ -248,16 +248,13 @@ button:hover {
   width: 15%;
 }
 
-.elementProperties >li  > h3 >img:hover {
-  filter: brightness(70%);
-}
-
 .elementInfo {
   width: 20%;
   height: 87vh;
   align-items: center;
   background-color: rgba(0, 0, 0, .5);
   padding: 15px;
+  padding-right: 0; 
   overflow: auto; 
 }
 

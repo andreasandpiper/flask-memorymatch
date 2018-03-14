@@ -21,7 +21,7 @@ function GameStats(parent) {
     }
 
     for( var lifeIndex = 3; lifeIndex > parseInt(lives) ; lifeIndex--){
-      $('.lifeLeft' + lifeIndex).fadeOut();
+      $('.lifeLeft' + lifeIndex).addClass("loseLife");
 
     }
    }
@@ -65,7 +65,6 @@ function GameStats(parent) {
     if (lifeLeft < 3) {
       this.increment('lives');
       $('.lifeLeft' + lifeLeft).removeClass("loseLife");
-
     }
   }
   this.removeLife = function () {
