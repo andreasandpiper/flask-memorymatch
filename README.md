@@ -4,6 +4,12 @@
  
  I was inspired to create a science game based on my background of being a science teacher. The periodic table is iconic to science, and I wanted to create a game where people could learn some information about elements and molecules by playing a fun game.
 
+ ![Instructions Page](static/README_images/rules.jpg) | ![Game Play](static/README_images/game.jpg)
+:-------------------------:|:-------------------------:
+
+![Actions](static/README_images/methane.jpg) | ![Winner](static/README_images/winner.jpg)
+:-------------------------:|:-------------------------:
+
 ## How to Play
 
 Check out the [live site](https://memorymatch-flask.herokuapp.com/)
@@ -42,7 +48,7 @@ git push heroku master
 heroku ps:scale web=1
 ```
 ```
-heroku master
+heroku open
 ```
 
 ## Built With
@@ -62,7 +68,11 @@ heroku master
 
 ## License and Usage
 
-This project is open-source and free to use as long as the author is acknowledged.  
+This project is free to use though can not be copied. However, if you want to contribute, read the next section.  
+
+## License and Usage
+
+This project is open-source and is available for contributions. Fork the repo and create a new branch, make some modifications the create a pull request! Keep in mind, this game is intended to help others learn about the elements. 
 
 ## Acknowledgments
 
