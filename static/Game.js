@@ -71,7 +71,7 @@ function Game() {
   };
 
   this.winGame = function () {
-    $("#modal h1").text('you win');
+    $("#modal h1").text('Hydrogen Five! You\'ve matched all the elements!');
     $('#modal').css('display', 'block');
     this.gameStats.increment('win-total');
     this.gameStats.renderGameStats();
