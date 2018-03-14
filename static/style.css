@@ -141,11 +141,6 @@ header a:hover {
   padding: 5px;
 }
 
-.resource:hover {
-  filter: brightness(50%);
-  cursor: pointer;
-}
-
 .lives img {
   width: 20%;
   display: inline-block;
@@ -227,7 +222,7 @@ button:hover {
 .salt img,
 .gold img,
 .diamonds img {
-  width: 50%;
+  width: 33%;
 }
 
 .loseLife {
