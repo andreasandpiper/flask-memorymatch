@@ -4,10 +4,8 @@
  
  I was inspired to create a science game based on my background of being a science teacher. The periodic table is iconic to science, and I wanted to create a game where people could learn some information about elements and molecules by playing a fun game.
 
-![Instructions Page](static/README_images/rules.jpg) |
-
-![Game Play](static/README_images/game.jpg) | ![Winner](static/README_images/winner.jpg)
-:-------------------------:|:-------------------------:
+|![Instructions Page](static/README_images/rules.jpg) | ![Game Play](static/README_images/game.jpg) | ![Winne(static/README_images/winner.jpg)|
+|:-------------------------:|:-------------------------:|:-------------------------:|
 
 ## How to Play
 
