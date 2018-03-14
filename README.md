@@ -4,7 +4,8 @@
  
  I was inspired to create a science game based on my background of being a science teacher. The periodic table is iconic to science, and I wanted to create a game where people could learn some information about elements and molecules by playing a fun game.
 
-|![Instructions Page](static/README_images/rules.jpg) | ![Game Play](static/README_images/game.jpg)|
+![Instructions Page](static/README_images/rules.jpg) 
+![Game Play](static/README_images/game.jpg)
 
 ## How to Play
 
@@ -66,7 +67,7 @@ heroku open
 
 This project is free to use though can not be copied. However, if you want to contribute, read the next section.  
 
-## License and Usage
+## Contribute
 
 This project is open-source and is available for contributions. Fork the repo and create a new branch, make some modifications the create a pull request! Keep in mind, this game is intended to help others learn about the elements. 
 
