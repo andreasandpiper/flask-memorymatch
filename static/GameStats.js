@@ -62,10 +62,9 @@ function GameStats(parent) {
   };
   this.addLife = function () {
     var lifeLeft = localStorage.getItem('lives');
-    if (lifeLeft < 3) {
-      this.increment('lives');
-      $('.lifeLeft' + lifeLeft).removeClass("loseLife");
-    }
+    this.increment('lives');
+    $('.lifeLeft' + lifeLeft).removeClass("loseLife");
+    return true; 
   }
   this.removeLife = function () {
     $('.lifeLeft' + localStorage.getItem('lives')).addClass("loseLife");
@@ -78,9 +77,12 @@ function GameStats(parent) {
   }
   this.useResource = function () {
     var resource = $(event.target).closest('h3').attr('class');
-    if (resource === 'diamonds' && localStorage.getItem('diamond-count') > 0 && localStorage.getItem('diamond-count') < 3) {
+    if (resource === 'diamonds') {
+      if(localStorage.getItem('lives') === '3'){
+        return false; 
+      }
       this.addLife();
-      this.decrement('diamond-count')
+      this.decrement('diamond-count');
       $('.lifeLeft' + localStorage.getItem('lives')).removeClass("loseLife");
     } else if (resource === 'gold' && localStorage.getItem('gold-count') > 0 && game.curiumCountdown) {
       this.parent.eventForMatchedCards('curium');

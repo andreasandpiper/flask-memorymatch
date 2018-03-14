@@ -320,6 +320,7 @@ button:hover {
   align-items: center;
   align-content: center;
   width: 68%;
+  height: 80vh;
 }
 
 .countDown {
@@ -456,8 +457,16 @@ button:hover {
   margin: 3%;
 }
 
-
 @media all and (max-width: 980px) { 
+  .salt img, .gold img, .diamonds img {
+    width: 68%; 
+  }
+  .elementInfo h2 {
+    font-size: .8em;
+  }
+}
+
+@media all and (max-width: 480px) { 
   .game-area-full  {
     display: inline; 
   }
@@ -487,10 +496,6 @@ button:hover {
   .gameStats > div {
     padding: 0 15px; 
   }
-
-  .elementInfo{
-    display: none;
-  }
   
   #game-area {
     width: 100%; 
@@ -499,9 +504,9 @@ button:hover {
   .salt img, .gold img, .diamonds img {
     width: 80%; 
   }
- }
+  .elementProperties h3 {
+    font-size: 2em;
+  }
+}
 
-/* @media all and (max-width: 736px) { 
 
- }
-@media all and (max-width: 480px) { ... } */
