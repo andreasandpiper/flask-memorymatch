@@ -1,6 +1,7 @@
 $(document).ready(initializeApp);
 
 var game = null;
+var cow = null; 
 var gameStats = null;
 var images = [{'chlorine': "/static/images/chlorine.jpg"},
 {'hydrogen': "/static/images/hydrogen.jpg"},
@@ -15,6 +16,7 @@ var images = [{'chlorine': "/static/images/chlorine.jpg"},
 
 function initializeApp() {
   $('.resetGame').click(beginGame);
+  cow = new Cow();
   gameStats = new GameStats();
   gameStats.constructResources();
   $(".elementProperties h3").on('click', displayInfoAboutElement);

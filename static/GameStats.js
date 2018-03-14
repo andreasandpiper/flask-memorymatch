@@ -4,6 +4,7 @@ function GameStats(parent) {
   this.totalGameMatches = 0;
   this.parent = parent;
   this.resources = ['gold-count','salt-count', 'diamond-count','win-total'];
+  this.saltQueue = [];
 
   this.constructResources = function(){
     var lives = localStorage.getItem('lives');
@@ -82,11 +83,12 @@ function GameStats(parent) {
       this.parent.eventForMatchedCards('curium');
       this.decrement('gold-count')
     } else if (resource === 'salt' && localStorage.getItem('salt-count') > 0) {
-      this.parent.eventForMismatchedCards('hydrogen', 'carbon');
+      cow.methaneGasCow();      
       this.decrement('salt-count')
     }
     this.renderGameStats();
   }
+
 }
 
 function displayInfoAboutElement() {

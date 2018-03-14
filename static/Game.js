@@ -5,12 +5,10 @@ function Game() {
   this.cardsFlipped = [];
   this.dealCardsOnInterval = null;
   this.curiumCountdown = null;
-  this.cow = null;
   this.gameStats = gameStats;
 
   this.initializeGame = function () {
     this.cards = this.createCards(images);
-    this.cow = new Cow();
     gameStats.parent = this;
     this.gameStats.renderGameStats();
   };
@@ -130,7 +128,7 @@ Game.prototype.eventForMatchedCards = function (element) {
       break;
     case 'neon':
       this.showTextForEvent('COW!')
-      this.cow.neonCow();
+      cow.neonCow();
       break;
   }
 }
@@ -138,7 +136,7 @@ Game.prototype.eventForMatchedCards = function (element) {
 Game.prototype.eventForMismatchedCards = function (element1, element2) {
   if (element1 === "carbon" && element2 === 'hydrogen' || element1 === 'hydrogen' && element2 === 'carbon') {
     this.showTextForEvent('You created methane! Watch the cow!')
-    this.cow.methaneGasCow();
+    cow.methaneGasCow();
   } else if (element2 === 'chlorine' && element1 === 'sodium' || element1 === 'chlorine' && element2 === 'sodium' || element2 === 'chlorine' && element1 === 'calcium' || element1 === 'chlorine' && element2 === 'calcium') {
     this.showTextForEvent('You created a salt! Use salt to feed the cow.')
     this.gameStats.increment('salt-count');
