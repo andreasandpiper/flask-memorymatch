@@ -80,6 +80,7 @@ function Game() {
   this.gameOver = function () {
     $("#modal h1").text('Ahhh! Death by Hydrochloric Acid, you lose all your resources.');
     $('#modal').css('display', 'block');
+    gameStats.deleteAllResources();
     gameStats = new GameStats();
   }
 }

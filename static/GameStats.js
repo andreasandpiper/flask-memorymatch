@@ -25,8 +25,12 @@ function GameStats(parent) {
 
     }
    }
-
-  this.setInStorage = function(name, value, amount){
+  this.deleteAllResources = function(){
+    for(var index = 0 ; index < this.resources.length - 1; index++){
+      this.setInStorage(this.resources[index], 0);
+    }
+  }
+  this.setInStorage = function(name, value){
     if(value === null || value =='0' || localStorage.getItem('lives') === 0){
       localStorage.setItem(name, 0);
     } 
