@@ -332,6 +332,7 @@ button:hover {
   right: 52vw;
   z-index: 5;
   text-shadow: 5px 5px #515151;
+  pointer-events: none;
 }
 
 .card {
