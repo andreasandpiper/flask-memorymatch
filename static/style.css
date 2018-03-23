@@ -282,7 +282,7 @@ button:hover {
   font-size: 1em; 
 }
 
-.elementProperties>li:hover {
+.elementProperties > li > h3:hover {
   filter: brightness(70%);
   cursor: pointer;
 }
